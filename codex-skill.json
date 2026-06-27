@@ -1,0 +1,12 @@
+{
+  "name": "codex-auto-bugbounty",
+  "version": "0.1.0",
+  "description": "Codex skill for automated Bugcrowd report generation and submission guidance.",
+  "tool": {
+    "id": "codex-auto-bugbounty",
+    "runtime": "python",
+    "entrypoint": "src/cli.py",
+    "input_schema": "spec/skill-input-schema.json",
+    "output_schema": "spec/skill-output-schema.json"
+  }
+}
