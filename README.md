@@ -1,6 +1,7 @@
 # Codex Auto Bug Bounty
 
-Automated report generation and Bugcrowd submission guidance skill.
+Automated report generation, Bugcrowd submission guidance, and program
+discovery.
 
 ## Overview
 
@@ -9,9 +10,17 @@ produces:
 
 - A Bugcrowd-style report payload.
 - A submission guide with checklist and notes for clear triage.
+- Optional discovery of Bugcrowd programs available to the researcher.
 
 The contract is defined by JSON schemas under `spec/` and the Python
 implementation under `src/`.
+
+## Program Discovery
+
+The module `src/bugcrowd_discovery.py` provides `list_programs`, which queries
+Bugcrowd's API for programs visible to the current researcher. It expects an
+API token exposed via the `BUGCROWD_API_TOKEN` environment variable and
+normalises the JSON:API response into a simple list of program objects.
 
 ## Usage
 
@@ -22,8 +31,16 @@ implementation under `src/`.
    python -m src.cli examples/session-fixation-input.json > out.json
    ```
 
-3. The output JSON will conform to `spec/skill-output-schema.json` and can be
-   used by Codex or similar runtimes to assist with Bugcrowd submissions.
+3. Optionally, discover programs before selecting a target:
+
+   ```bash
+   export BUGCROWD_API_TOKEN=...  # from Bugcrowd API Credentials
+   python -c "from src.bugcrowd_discovery import list_programs; import json; print(json.dumps(list_programs(), indent=2))" 
+   ```
+
+4. The output JSON from the CLI will conform to `spec/skill-output-schema.json`
+   and can be used by Codex or similar runtimes to assist with Bugcrowd
+   submissions.
 
 ## Codex Skill Metadata
 
@@ -36,5 +53,5 @@ The `codex-skill.json` file describes the tool metadata:
 
 ## Status
 
-Initial implementation complete: schemas, core transformation, CLI wrapper, and
-one example finding.
+Implementation now includes report generation, submission guidance, and program
+lookup via the Bugcrowd API.

@@ -10,7 +10,8 @@
         "platform": { "type": "string", "enum": ["Bugcrowd"] },
         "policy_url": { "type": "string" },
         "asset_type": { "type": "string" },
-        "asset_identifier": { "type": "string" }
+        "asset_identifier": { "type": "string" },
+        "program_id": { "type": "string" }
       },
       "required": ["name", "platform", "asset_type", "asset_identifier"]
     },
