@@ -1,0 +1,34 @@
+{
+  "program": {
+    "name": "Example Bugcrowd Program",
+    "platform": "Bugcrowd",
+    "policy_url": "https://bugcrowd.com/example-program/policy",
+    "asset_type": "Web Application",
+    "asset_identifier": "https://example.com"
+  },
+  "finding": {
+    "title": "Session fixation via insecure cookie handling",
+    "weakness_class": "Session Management",
+    "cwe_id": "CWE-613",
+    "severity": "High",
+    "description": "The application allows session IDs to be reused across authentication boundaries, enabling an attacker to fix a victim's session.",
+    "impact": "An attacker can hijack authenticated sessions, gaining full access to victim accounts.",
+    "environment": "Production",
+    "steps_to_reproduce": [
+      "Navigate to the login page as an unauthenticated user.",
+      "Observe the session cookie assigned prior to authentication.",
+      "Authenticate with valid credentials.",
+      "Notice that the session cookie value remains unchanged after login.",
+      "Reuse the same session cookie in a separate browser to hijack the session."
+    ],
+    "expected_result": "Session identifiers should be regenerated upon successful authentication.",
+    "actual_result": "Session identifiers remain the same across authentication, allowing fixation.",
+    "evidence": [
+      {
+        "type": "http_capture",
+        "path": "evidence/session_fixation.pcap",
+        "description": "Packet capture showing unchanged session ID across login."
+      }
+    ]
+  }
+}

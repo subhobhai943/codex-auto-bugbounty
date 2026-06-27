@@ -1,0 +1,47 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Codex Auto Bug Bounty Skill Input",
+  "type": "object",
+  "properties": {
+    "program": {
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "platform": { "type": "string", "enum": ["Bugcrowd"] },
+        "policy_url": { "type": "string" },
+        "asset_type": { "type": "string" },
+        "asset_identifier": { "type": "string" }
+      },
+      "required": ["name", "platform", "asset_type", "asset_identifier"]
+    },
+    "finding": {
+      "type": "object",
+      "properties": {
+        "title": { "type": "string" },
+        "weakness_class": { "type": "string" },
+        "cwe_id": { "type": "string" },
+        "severity": { "type": "string" },
+        "description": { "type": "string" },
+        "impact": { "type": "string" },
+        "environment": { "type": "string" },
+        "steps_to_reproduce": { "type": "array", "items": { "type": "string" } },
+        "expected_result": { "type": "string" },
+        "actual_result": { "type": "string" },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "type": { "type": "string" },
+              "path": { "type": "string" },
+              "description": { "type": "string" }
+            },
+            "required": ["type", "path"]
+          }
+        }
+      },
+      "required": ["title", "weakness_class", "severity", "description", "impact", "steps_to_reproduce"]
+    }
+  },
+  "required": ["program", "finding"]
+}
