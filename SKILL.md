@@ -1,3 +1,13 @@
+---
+name: codex-auto-bugbounty
+version: 0.1.0
+description: Automated Bugcrowd report generation, submission guidance, and program discovery for security researchers.
+runtime: python
+entrypoint: src/cli.py
+input_schema: spec/skill-input-schema.json
+output_schema: spec/skill-output-schema.json
+---
+
 # Skill: Codex Auto Bug Bounty
 
 ## Identifier
@@ -57,6 +67,13 @@ The skill produces a JSON object that conforms to `spec/skill-output-schema.json
   - `checklist`: ordered steps to submit on Bugcrowd.
   - `notes`: best-practice guidance for clear triage.
 
+### Markdown Output
+
+When `SKILL_WRITE_MARKDOWN=1` is set, the CLI also writes:
+
+- `reports/<slugified-title>.md`: full vulnerability report.
+- `guides/<slugified-title>-submission.md`: Bugcrowd submission checklist and notes.
+
 ## Program Discovery
 
 The auxiliary module `src/bugcrowd_discovery.py` exposes:
@@ -81,14 +98,13 @@ Codex runtimes can use this to:
 
 ## Invocation Semantics
 
-- Input MUST be fully validated against the input schema before calling the
-  skill.
+- Input MUST be fully validated against the input schema before calling the skill.
 - The skill is stateless; each invocation is independent.
-- Program discovery is best-effort; errors (auth, network) should be handled
-  by the caller.
+- Program discovery is best-effort; errors (auth, network) should be handled by the caller.
+- Set `BUGCROWD_API_TOKEN` for program discovery.
+- Set `SKILL_WRITE_MARKDOWN=1` to also write `.md` report and submission guide files.
 
 ## Versioning
 
 - `version`: `0.1.0`
-- Changes to the input or output schema MUST bump the version and be recorded
-  in the repository changelog.
+- Changes to the input or output schema MUST bump the version and be recorded in the repository changelog.
